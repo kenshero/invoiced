@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_line: MyString
+  invoice_number: MyString
+  product: MyString
+  qty: MyString
+  price: MyString
+  invoice_id: 
+
+two:
+  id_line: MyString
+  invoice_number: MyString
+  product: MyString
+  qty: MyString
+  price: MyString
+  invoice_id: 

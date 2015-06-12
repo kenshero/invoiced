@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice_number: MyString
+  total: 1
+  issue_date: 2015-06-09
+  due_date: 2015-06-09
+
+two:
+  invoice_number: MyString
+  total: 1
+  issue_date: 2015-06-09
+  due_date: 2015-06-09
