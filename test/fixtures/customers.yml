@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+customer_one:
+  firstname: Ken
+  lastname: shero
+  address: pet
+  phone: 1111
+  user: user_one
+
+customer_two:
+  firstname: www
+  lastname: eee
+  address: qwe
+  phone: 2222
+  user: user_two
+
+customer_three:
+  firstname: jaka
+  lastname: wwesh
+  address: gggg
+  phone: 232123
+  user: user_one
+
+customer_four:
+  firstname: zuzu
+  lastname: yoyo
+  address: qqq
+  phone: 54324
+  user: user_two    

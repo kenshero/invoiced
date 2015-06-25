@@ -1,51 +1,108 @@
-<%= render "layouts/header" %>
+<div class="container">
+	<ol class="breadcrumb">
+	  	<li><%= link_to 'Customers',customers_path,class: "" %></li>
+	  	<li><%= link_to 'Invoices' ,customer_invoices_path,class: "" %></li>
+	  	<li><%= link_to 'Show' ,customer_invoice_path,class: "active" %></li>
+	</ol>		
+</div>
+
+<div class="container panel panel-default head-invoice">
+	<h3>Invoice Detail:</h3>
+	<div class="row panel-body">
+		<div class="col-md-6">
+			<div class="form-group">
+			  	<%= image_tag attachment_url(current_user, :profile_image, :fill, 200, 200, format: "jpg") %>
+			</div>				
+		</div>
+		<div class="col-md-6">
+			<div class="form-group">
+			    <label>Invoice number :</label>
+			    <%= @invoice.invoice_number %>
+			</div>	
+
+			<div class="form-group">
+			    <label>issue_date :</label>
+			    <%= @invoice.issue_date %>
+			</div>
+
+			<div class="form-group">
+			    <label>due_date :</label>
+			    <%= @invoice.due_date %>
+			</div>
+																
+		</div>				
+	</div>
+	<hr>
+	<div class="row panel-body col-md-6">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label>ชื่อ :</label>
+			    <%= current_user.username %>
+			</div>
+
+			<div class="form-group">
+				<label>Address:</label>
+			    <%= current_user.address %>
+			</div>	
+
+			<div class="form-group">
+				<label>Tel :</label>
+			    <%= current_user.tel %>
+			</div>	
+										
+		</form>
+ 	</div>
+
+	<div class="row panel-body col-md-6">
+		<h3>Customer:</h3>
+		<form class="form-horizontal">
+			<div class="form-group">
+			   <label>Name :</label>
+			   <%= @customer.firstname %>
+			</div>
+
+			<div class="form-group">
+			   <label>LastName :</label>
+			   <%= @customer.lastname %>
+			</div>
+
+			<div class="form-group">
+				<label>Address :</label>
+			   <%= @customer.address %>
+			</div>
+
+			<div class="form-group">
+				<label>Phone :</label>
+			   <%= @customer.phone %>
+			</div>	
+		</form>
+ 	</div>
+</div>
 
 <div class="container panel panel-default">
 	<div class="row panel-body">
-	<%= form_for @invoice do |f| %>
-		<div class="form-group">
-		    <h3>Invoice_number :</h3>
-		    <%= f.text_field :invoice_number ,class: "form-control",disabled: true  %>
-		</div>	
-
-		<div class="form-group">
-		    <h3>Issue_date :</h3>
-		    <%= f.text_field :issue_date ,class: "form-control",disabled: true  %>
-		</div>
-
-		<div class="form-group">
-		    <h3>Issue_date :</h3>
-		    <%= f.text_field :due_date ,class: "form-control",disabled: true  %>
-		</div>	
+	<%= form_for [@customer , @invoice] do |f| %>
 
 		<h1>Line Item</h1>
+		<table class="table table-bordered">
+			<thead>
+				<th>No.</th>
+				<th>Product Name</th>
+				<th>Quanity</th>
+				<th>Price</th>
+			</thead>		
 		<%= f.fields_for :line_items,class: "" do |item|  %>
-		
-		  <div class="form-inline fields line-items">
-			  <div class="form-group">
-			    <label>Product Name :</label>
-			    <%= item.text_field :product ,class: "form-control",disabled: true  %> 
-			  </div>
-
-			  <div class="form-group">
-			    <label>Quanity :</label>
-			    <%= item.text_field :qty ,class: "form-control",disabled: true %>
-			  </div>
-
-			  <div class="form-group">
-			    <label>Price :</label>
-			    <%= item.text_field :price ,class: "form-control",disabled: true %>
-			  </div>
-		  </div>
-		<% end %>
-
-		<div class="form-group">
-		    <h2>Sub Total : <%= @invoice.total %></h2>
-		    <h3>vat 7%: <%= (@invoice.total*0.07).round(2) %></h3>
-		    <h1>Total : <%= @invoice.total+(@invoice.total*0.07).round(2) %></h1>
-		</div>
+				<tr>
+					<td><%= item.index+1 %></td>
+					<td><%= item.object.product %></td>
+					<td><%= item.object.qty %></td>
+					<td><%= item.object.price %></td>
+				</tr>
+		<% end %>		
+		</table>	
 
 	<% end %>	
-	 <%= link_to '<<Back', invoices_path,class: "label label-primary" %>
 	</div>
 </div>
+
+<%= render "invoices/payment" %>

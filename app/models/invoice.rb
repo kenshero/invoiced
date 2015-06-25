@@ -1,13 +1,12 @@
-module Sum
-	attr_accessor :sum
-end
-
 class Invoice < ActiveRecord::Base
-	has_many :line_items, dependent: :destroy
-	validates :invoice_number,presence: true,uniqueness: true
-	accepts_nested_attributes_for :line_items, allow_destroy: true,
-	reject_if: lambda {|attributes| attributes['product'].blank? || attributes['qty'].blank? || attributes['price'].blank?  }
-
+	has_many   :line_items, dependent: :destroy
+	has_many   :payments, dependent: :destroy
+	belongs_to :customer
+	validates  :invoice_number,presence: true,uniqueness: true
+	accepts_nested_attributes_for :line_items,:payments, allow_destroy: true,
+	# reject_if: lambda {|attributes| attributes['product'].blank? || attributes['qty'].blank? || attributes['price'].blank?  }
+	reject_if: :all_blank
+	
 	after_initialize :plus_invoiceNumber
 	after_touch	 :calculate,:summation
 	attr_accessor :sum

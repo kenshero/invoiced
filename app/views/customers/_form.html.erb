@@ -1,0 +1,42 @@
+<div class="container panel panel-default">
+	<div class="row panel-body">
+	<h1>Customer</h1>
+		<% if @customer.errors.any? %>
+			<div class="alert alert-danger alert-dismissible fade in">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+				  	<% @customer.errors.full_messages.each do |msg| %>
+				      <li><%= msg %></li>
+				    <% end %>						
+			</div>	
+		<% end %>	
+
+		<%= form_for @customer do |f| %>
+
+		  <div class="form-group">
+		    <label>FirstName:</label>
+		    <%= f.text_field :firstname ,class: "form-control", placeholder: "firstname" %>
+		  </div>
+
+		  <div class="form-group">
+		    <label>LastName:</label>
+		    <%= f.text_field :lastname ,class: "form-control", placeholder: "lastname" %>
+		  </div>
+
+		  <div class="form-group">
+		    <label>Address:</label>
+		    <%= f.text_area  :address  ,class: "form-control" %>
+		  </div>
+
+		  <div class="form-group">
+		    <label>Phone:</label>
+		    <%= f.text_field :phone ,class: "form-control", placeholder: "08x-xxxx" %>
+		  </div>
+
+		  <div class="form-group">
+		  	<%= f.submit "Submit",class: "btn btn-primary" %>
+		  </div>
+		<% end %>	
+	</div>	
+</div>

@@ -1,4 +1,8 @@
-<%= render "layouts/header" %>
-
-
+<div class="container">
+	<ol class="breadcrumb">
+	  	<li><%= link_to 'Customers',customers_path,class: "" %></li>
+	  	<li><%= link_to 'Invoices' ,customer_invoices_path,class: "" %></li>
+	  	<li><%= link_to 'Add' ,new_customer_invoice_path,class: "active" %></li>
+	</ol>		
+</div>
 <%= render "invoices/form" %>

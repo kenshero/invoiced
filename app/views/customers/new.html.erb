@@ -1,0 +1,7 @@
+<div class="container">
+	<ol class="breadcrumb">
+	  	<li><%= link_to 'Customers',customers_path,class: "" %></li>
+	  	<li><%= link_to 'New',new_customer_path,class: "active" %></li>
+	</ol>		
+</div>
+<%= render "customers/form" %>

@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
-  resources :invoices do
-    resources :line_items
+  
+  devise_for :users
+  # devise_for :users, :controllers => { registrations: 'registrations' }
+  resources :customers do
+    resources :invoices
   end
+
+  resources :search
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  #root 'invoice#index'
+  root 'customers#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
-
+  get "404_Not_found", :to => "errors#not_found"
+  
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 

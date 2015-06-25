@@ -1,0 +1,45 @@
+<div class="container panel panel-default">
+	<div class="row panel-body">
+		<h1>Payment</h1>	
+		<%= form_for [@customer, @invoice] ,class: "form-inline" do |f| %>
+			<%= f.fields_for :payments,class: "form-line--item" do |item|  %>
+			  <div class="form-inline fields line-items">
+				  <div class="form-group">
+				    <label>Date :</label>
+				    <%= item.date_select(:date)%> 
+				  </div>
+
+				  <div class="form-group">
+				    <label>Description :</label>
+				    <%= item.text_field :description ,class: "form-control" %>
+				  </div>
+
+				  <div class="form-group">
+					  <%= item.select :payment_method, [['--Please Select--',''],['Cash', 1], ['Credit Card', 2], ['Check', 3]],class: "form-control" %>
+				  </div>
+				  <div class="form-group">
+				    <label>Price :</label>
+				    <%= item.text_field :price_payment ,class: "form-control" %>
+				  </div>
+
+				  <div class="form-group">
+					<%= item.hidden_field :_destroy %>  
+ 				    <%= link_to "remove", "#" , onclick: "remove_fields(this)" %>  
+				  </div>
+			  </div>			  
+			<% end %>
+			<div class="form-group">
+			  	<%= f.submit "Submit",class: "btn btn-primary" %>
+			</div>
+
+			<div class="form-group pull-right">
+			    <h4>Sub Total : <%= @invoice.total %></h4>
+			    <h4>vat 7%: <%= (@invoice.total*0.07).round(2) %></h4>
+			    <h1>Total : <%= @invoice.total+(@invoice.total*0.07).round(2) %></h1>
+			    <h4>payment all: <%= @sumpay %></h4>
+			    <h1>คงเหลือ : <%= (@invoice.total+(@invoice.total*0.07).round(2)) - @sumpay  %></h1>
+		 		<%= link_to '<<Back', customer_invoices_path,class: "label label-primary" %>		    
+			</div>
+		<% end %>
+	</div>
+</div>

@@ -15,3 +15,16 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+
+function remove_fields(link) {  
+    // $(link).previous("input[type=hidden]").value = "1";  
+    // $(link).up(".fields").hide();  
+	// 1
+	$(link).prevAll("input[type=hidden]").first().val("1");
+
+	// 2
+	$(link).closest(".fields").hide();
+	// Or: $(link).parents(".fields").first().hide();
+	// Or: $(link).parent().closest(".fields").first().hide();
+
+}

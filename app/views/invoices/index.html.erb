@@ -1,16 +1,20 @@
-<%= render "layouts/header" %>
-
 <div class="container">
+
+	<div class="container">
+		<ol class="breadcrumb">
+		  	<li><%= link_to 'Customers',customers_path,class: "" %></li>
+		  	<li><%= link_to 'Invoices' ,customer_invoices_path,class: "active" %></li>
+		</ol>		
+	</div>
+
 	<div class="row">
-		<%= link_to '+Add', new_invoice_path,:class => "btn btn-primary pull-right" %>
+		<%= link_to '+Add',  new_customer_invoice_path,:class => "btn btn-primary pull-right" %>
 	</div>
 	<div class="row">
 		<table class="table table-striped">
 			<thead>
 				<th>No.</th>
 				<th>Invoice Number</th>
-				<th>Invoice Company</th>
-				<th>Customer</th>
 				<th>Total</th>
 				<th>Issue Date</th>
 				<th>Due Date</th>
@@ -21,17 +25,15 @@
 				<tr>
 					<td></td>
 					<td><%= invoice.invoice_number %></td>
-					<td></td>
-					<td></td>
 					<td><%= invoice.total %></td>
 					<td><%= invoice.issue_date %></td>
 					<td><%= invoice.due_date %></td>
 					<td>
-						<%= link_to 'Show', invoice_path(invoice),
+						<%= link_to 'Show', customer_invoice_path(@customer,invoice),
 							class: "btn btn-success"%>
-						<%= link_to 'Edit', edit_invoice_path(invoice),
+						<%= link_to 'Edit', edit_customer_invoice_path(@customer,invoice),
 							class: "btn btn-warning"%>
-						<%= link_to 'Delete', invoice_path(invoice),
+						<%= link_to 'Delete', customer_invoice_path(@customer,invoice),
              				method: :delete,
             				data: { confirm: 'Are you sure?' },
             				class: "btn btn-danger" %>
