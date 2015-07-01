@@ -2,8 +2,8 @@ class CustomersController < ApplicationController
   def index
     # @customers =  current_user.customers.all
     # @customers =  Customer.search((params[:q].present? ? params[:q] : '*')).records
-      if params[:q].present? && params[:op].present?
-        @customers = current_user.customers.custom_search(params[:q],params[:op],current_user.id).results
+      if params[:q].present? && params[:choice].present?
+        @customers = current_user.customers.custom_search(params[:q],params[:choice],current_user.id).results
       else
         @customers = current_user.customers.all
         # binding.pry
@@ -16,13 +16,12 @@ class CustomersController < ApplicationController
   end
 
   def create
-    # render plain: current_user.customers.inspect
     @customer = current_user.customers.new(customer_params)
     if @customer.save
       redirect_to customers_path
     else
       render 'new'
-    end     
+    end
   end
 
   def show

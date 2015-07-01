@@ -16,4 +16,4 @@ lineitem_three:
   product: item3  
   qty: 2
   price: 500
-  invoice: invoice_one
+  invoice: invoice_three

@@ -13,8 +13,8 @@
 			</div>
 
 		  <div class="col-md-1">
-				<%= select_tag :op, options_for_select([['All', 1], ['firstname', 2], ['lastname', 3],
-				 ['address', 4], ['phone', 5]],selected: params[:op] ) %>
+				<%= select_tag :choice, options_for_select([['All', "all"], ['firstname', "firstname"], 
+				['lastname', "lastname"],['address', "address"], ['phone', "phone"]],selected: params[:choice] ) %>
 		  </div>	
 
 			<div class="col-md-1">

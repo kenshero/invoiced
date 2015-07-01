@@ -1,9 +1,6 @@
-require 'test_helper'
+  require 'test_helper'
 
 class CustomersControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
   include Devise::TestHelpers
   setup :initialize_customer
 
@@ -20,7 +17,6 @@ class CustomersControllerTest < ActionController::TestCase
   test "should go search index customer" do
     sign_in @user_one
     get :index , q: "K" , op: 2
-    # binding.pry
     assert_equal( "Ken", @customer_one.firstname,"not found search")
   end
 
@@ -29,17 +25,12 @@ class CustomersControllerTest < ActionController::TestCase
     get :index , q: "" , op: 1
     assert_equal( "Ken", @customer_one.firstname,"not found search")
     assert_equal( "jaka", @customer_three.firstname,"not found search")
-    # assert_difference('Customer.count')
-  end
-
-  test "should show customer" do
-
   end
 
   test "shoude delete customer" do
   	sign_in @user_one
   	delete :destroy ,id: @customer_one.id
-  	assert_redirected_to customers_path	
+  	assert_redirected_to customers_path
   end
 
   test "should new customer" do
@@ -50,11 +41,11 @@ class CustomersControllerTest < ActionController::TestCase
 
   test "should create customer" do
   	sign_in @user_one
-  	post :create , customer:{
-	  							firstname: "kenza55",
+  	post :create ,customer:{
+	  						 	firstname: "kenza55",
 	  							lastname:  "jaajaja",
-								address:   "petchar",
-								phone:      2222222
+					   			address:   "petchar",
+						  		phone:      2222222
   						    }
   	assert_redirected_to customers_path
   end
@@ -67,12 +58,12 @@ class CustomersControllerTest < ActionController::TestCase
 
   test "should update customer" do
   	sign_in @user_one
-  	patch :update, id: @customer_one.id, customer:{
+  	patch :update,id: @customer_one.id, customer:{
 	  							firstname: "gggg",
 	  							lastname:  "wwww",
-								address:   "eeeee",
-								phone:      3333
-  	}
+							   	address:   "eeeee",
+							   	phone:      3333
+  	             }
   end
 
   private 
@@ -81,6 +72,5 @@ class CustomersControllerTest < ActionController::TestCase
   		@customer_one = customers(:customer_one)
       @customer_three = customers(:customer_three)
       @customer_one.__elasticsearch__.index_document
-
   	end
 end

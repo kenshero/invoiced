@@ -35,6 +35,10 @@ gem "refile-mini_magick"
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 
+# gem 'transponder'
+# gem 'pusher'
+# gem 'gon'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

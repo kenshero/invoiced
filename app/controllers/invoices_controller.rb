@@ -2,7 +2,6 @@ class InvoicesController < ApplicationController
 	def index
 		@customer = customer_id
 		@invoices = scope_page
-
 	end
 
 	def new
@@ -30,7 +29,7 @@ class InvoicesController < ApplicationController
 
 	def destroy
 		@customer = customer_id
-		@invoice = get_invoice
+		@invoice  = get_invoice
 		@invoice.destroy
 		redirect_to customer_invoices_path
 	end
@@ -44,7 +43,7 @@ class InvoicesController < ApplicationController
 
 	def update
 		@customer = customer_id
-	  	@invoice  = get_invoice
+	  @invoice  = get_invoice
 	  
 	  if @invoice.update_attributes(invoice_params)
 	    redirect_to customer_invoices_path
@@ -57,7 +56,7 @@ private
   def invoice_params
     params.require(:invoice).permit(:invoice_number,:total,:issue_date,:due_date,
     	line_items_attributes: [:id, :product, :qty, :price, :invoice_id, :_destroy],
-    	  payments_attributes: [:id, :date,:description,:payment_method,:price_payment, :invoice_id, :_destroy])
+    	payments_attributes: [:id, :date,:description,:payment_method,:price_payment, :invoice_id, :_destroy])
   end
 
   def id_invoice
@@ -69,13 +68,13 @@ private
   end
 
   def get_invoice
-	@customer.invoices.find(id_invoice)  	
+  	@customer.invoices.find(id_invoice)  	
   end
 
   def sum_pay
-	sum = 0
-	@invoice.payments.each do |payment|
-	sum = sum + payment.price_payment
+  	sum = 0
+  	@invoice.payments.each do |payment|
+  	sum = sum + payment.price_payment
 	end  
 		sum 	
   end

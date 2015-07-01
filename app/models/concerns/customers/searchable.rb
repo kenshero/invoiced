@@ -3,57 +3,14 @@ module Customers
     extend ActiveSupport::Concern
 
     included do 
-      include Elasticsearch::Model
-      include Elasticsearch::Model::Callbacks
-      index_name "#{Rails.env}_customers"
-      
-      mapping do
-        indexes :id, index: :not_analyzed
-        indexes :firstname
-        # indexes :short_description
-        # indexes :long_description
-        # indexes :coordinates, type: 'geo_point'
-        # indexes :company_number
-        # indexes :main_phone_number, type: 'string',  index: :not_analyzed
-        # indexes :market_name,  type: 'string'
-        # indexes :opening_hours, type: 'nested' do
-        #   indexes :periods, type: 'string'
-        #   indexes :open_now, type: 'string'
-        #   indexes :weekday_text, type: 'string'
-        # end
-        # indexes :rating
-        # indexes :tags_with_score, type: 'nested' do
-        #   indexes :name,  type: 'string'
-        #   indexes :score, type: 'float'
-        # end
-        # indexes :tag_names,    type: 'string'
-        # indexes :region_names, type: 'string'
-        # indexes :site_ids,     type: 'integer', index: :not_analyzed
-        # indexes :region_ids,   type: 'integer', index: :not_analyzed
-        # indexes :category_ids, type: 'integer', index: :not_analyzed
-        # indexes :tag_ids,      type: 'integer', index: :not_analyzed
-      end
-
-      def self.custom_search(query,op,user_id)
-        fieldSearch = nil
-        if op == "1"
-          fieldSearch = ['firstname', 'lastname', 'address', 'phone']
-        elsif op == "2"
-          fieldSearch = ['firstname']
-        elsif op == "3"
-          fieldSearch = ['lastname']
-        elsif op == "4"
-          fieldSearch = ['address']
-        elsif op == "5"
-          fieldSearch = ['phone']                  
-        end
+      def self.custom_search(query,choice,user_id)
         __elasticsearch__.search(
           {
             query: {
               multi_match: {
                 query: query,
                 type: "phrase_prefix",
-                fields: fieldSearch
+                fields: field_search(choice)
               }
             },
             filter: {
@@ -65,12 +22,30 @@ module Customers
         )
       end
 
+      def self.field_search(choice)
+        case choice
+        when "all"
+          ['firstname', 'lastname', 'address', 'phone']
+        when "firstname"
+          ['firstname']
+        when "lastname"
+          ['lastname']
+        when "address"
+          ['address']
+        when "phone"
+          ['phone']
+        else
+          ['firstname', 'lastname', 'address', 'phone']
+        end
+      end
+
       # def as_indexed_json(options={})
       #   as_json(
       #     only: [:firstname]
       #   )
       # end
-    end
+    # end
+     end
   end
 end
 
